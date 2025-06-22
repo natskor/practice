@@ -5,7 +5,7 @@ title: Meet the Team
 
 <!-- Place your Image.png file into assets/images/ -->
  <style>
-    .card_grid {
+    .wrapper {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -15,20 +15,25 @@ title: Meet the Team
 
     .card {
         flex: 1 1 250px;
-        width: 250px;
-        border-radius: 8px;
+        background: rgba(176, 182, 190, 0.389);
+        border-radius: 1.5rem;
         text-align: center;
         font-family: sans-serif;
     }
 
     .card img {
-        width: 100%;
-        height: auto;
+        border-radius: 1.5rem;
+        max-width: 100%;
+        display: block;
+    }
+
+    .card p{
+        padding: 0 1em;
     }
 
  </style>
 
-<div class="card_grid">
+<div class="wrapper">
 
      <div class="card">
         <img src="PLACEHOLDER.jpg" alt="">
