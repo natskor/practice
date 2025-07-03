@@ -1,0 +1,145 @@
+buildscript {
+    respositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id "java"
+    id "application"
+    id "jvm-test-suite"
+
+    id "jacoco"
+    id "jacoc"
+
+    id "com.github.spotbugs" version "6.2.1"
+    id "pmd" 
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(17)
+    targetCompatibility = JavaVersion.toVersion(17)
+}
+
+respositories {
+     mavenCentral()
+}
+
+dependencies {
+    implementation "jsoup..."
+
+    testImplementation "org.junit.jupiter:junit-jupiter:5.8.2"
+    testImplementation "org.hamcrest:hamcrest-ibrary:2.2"
+
+}
+
+jar {
+    archiveBaseName = "MAIN FILE NAME "
+
+    manifest {
+        attributes(
+            "Main-Class": "edu.odu.mainfiledir"
+        )
+    }
+}
+
+application {
+    mainClass = "edu.odu.cs.cs35......."
+}
+
+testing {
+    suites {
+        configureEach{
+            useJUnitJupiter()
+
+             dependencies {
+                implementation project()
+                implementation "org.junit.jupiter:junit-jupiter:5.8.2"
+                implementation "org.hamcrest:hamcrest-ibrary:2.2"
+            }
+        }
+
+        test {
+            // common settings in configureEach
+        }
+
+        integrationTest(JvmTestSuite) {
+           
+              targets{
+                all {
+                    testTask.configure {
+                    shouldRunAfter(test)
+                    }
+            }   
+            }
+        }
+
+      
+    }
+}
+
+test {
+    ignoreFailures = true
+
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+
+    finalizedBy jacocoTestReport
+}
+
+integrationTest {
+   ignoreFailures = true
+
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+    finalizedBy integrationTestCodeCoverageReport
+}
+
+tasks.named("check") {
+    dependsOn(testing.suites.integrationTest)
+}
+
+
+//-----------------\
+// Analysis tools
+
+jacoco {
+    toolVersion = "0.8.13"
+}
+
+jacocoTestReport {
+    reports{
+        xml.required = true
+        csv.required = true
+    }
+}
+
+//spotbugs config
+spotbugs {
+    toolVersion = "1.1.1.1.1.12.1..1"
+
+}
+spotbugsTest {
+    enabled = false
+}
+
+spotbugsIntegrationTest {
+    enabled = false
+}
+//end
+
+//PMD congig
+pmd {
+    toolVersion = "7.0.0"
+    ignoreFailures = true
+    ruleSets = [
+        //info to be completeed 
+    ]
+}
+
+pmdTests{
+    //thi n that and dont forget intgreation test as well for pmd
+}
+//end

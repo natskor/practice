@@ -1,0 +1,11 @@
+dont forget to add .gitignore for gradle filess
+
+tool jacoco : 
+    this is used to help with chekcing if you have
+    missed anything with setting up tests
+    
+    ./gradlew tests
+
+    creates a test report 
+
+
